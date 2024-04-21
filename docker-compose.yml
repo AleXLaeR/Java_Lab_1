@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  msql-db:
+    image: mysql:latest
+    container_name: mysql
+    restart: always
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_DATABASE: students
+      MYSQL_ROOT_PASSWORD: root
