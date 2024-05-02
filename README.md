@@ -1,3 +1,6 @@
-1. Run `docker-compose up` to boostrap the MySQL database instance.
-2. Start the Spring Boot application with a Tomcat web server.
-3. Go to "http://localhost:8080/swagger-ui/index.html" in the browser to test the RESTful API.
+1. Выполнить команду `docker-compose up` чтобы запустить MySQL СУБД.
+2. Запустить Sprint Boot апи-сервер и Tomcat веб-сервер.
+3. Перейти по "http://localhost:8080/swagger-ui/index.html" для Сваггер-документации к RESTful API.
+4. Перейти по "http://localhost:8080/mvc/search?name=<имя>" чтобы протестировать MVC-контроллер. 
+Вместо `<имя>` нужно ввести желаемое имя или фамилию студента.
+

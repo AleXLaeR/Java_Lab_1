@@ -19,4 +19,8 @@ public class Student {
 
   private String email;
   private String address;
+
+  public String getFullName() {
+    return firstName + " " + lastName;
+  }
 }

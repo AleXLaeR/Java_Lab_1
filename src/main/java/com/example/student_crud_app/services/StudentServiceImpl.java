@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 
 @Service
-public class StudentServiceImpl implements StudentServices{
+public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentRepository studentRepo;
 
@@ -60,9 +62,29 @@ public class StudentServiceImpl implements StudentServices{
 
         Optional<Student> student = studentRepo.findById(id);
 
-        if(student.isPresent()){
+        if(student.isPresent()) {
             return student.get();
         }
         throw new StudentException("Student does not exist with Student ID : "+id);
+    }
+
+    public List<Student> searchStudentsByName(String queriedName) throws StudentException {
+        if (queriedName == null || queriedName.isEmpty()) {
+            throw new StudentException("Name cannot be empty");
+        }
+        try {
+            List<Student> allStudents = studentRepo.findAll();
+
+            Stream<Student> matchingStudentStream = allStudents.stream().filter((student) -> {
+                String studentName = student.getFullName().toLowerCase(Locale.ROOT);
+                String searchedName = queriedName.toLowerCase(Locale.ROOT);
+
+                return studentName.contains(searchedName);
+            });
+
+            return matchingStudentStream.toList();
+        } catch (Exception e) {
+            throw new StudentException("Error occurred while searching for students by name : " + e.getMessage());
+        }
     }
 }
